@@ -1,0 +1,8 @@
+0. Aplikacja dzia³a w trybie konsolowym.
+1. Wejœciowe pliki csv, xml, json nale¿y umieœciæ na dysku komputera w jednym katalogu (mo¿e zawieraæ podfoldery).
+2. Po uruchomieniu programu nale¿y podaæ pe³n¹ œcie¿kê do ww. katalogu, np. C:\Users\Username\Documents\myFiles
+3. Odpowiednie menu z list¹ raportów do wyboru pojawi siê na ekranie konsoli.
+4. Wyboru dokonujemy wpisuj¹c literê od a do k.
+5. Wybrany raport wyœwietli siê na ekranie konsoli.
+6. Dla niektórych raportów (e, f, i, j, k) istnieje mo¿liwoœæ sortowania (opcje dostêpne w dodatkowym podmenu).
+7. Zakoñczenie dzia³ania programu nastêpuje po wpisaniu litery z.
