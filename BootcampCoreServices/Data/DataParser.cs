@@ -86,7 +86,14 @@ namespace BootcampCoreServices.Data
 
                     foreach (var item2 in requestData.Requests)
                     {
-                        requests.Add(item2);
+                        if (string.IsNullOrEmpty(item2.ClientId) || string.IsNullOrEmpty(item2.RequestId.ToString()) || string.IsNullOrEmpty(item2.Name) || item2.Quantity.Equals(null) || item2.Price.Equals(null))
+                        {
+                            Console.WriteLine($"W dokumencie json {item} brakuje niektórych pól...");
+                        }
+                        else
+                        {
+                            requests.Add(item2);
+                        }
                     }
                 }
                 catch (Exception e)

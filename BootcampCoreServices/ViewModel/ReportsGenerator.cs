@@ -22,13 +22,13 @@ namespace BootcampCoreServices.ViewModel
         // c
         public static double TotalValueOfRequests(IEnumerable<Request> requests)
         {
-            return requests.Sum(t => t.Price * t.Quantity);
+            return (double) requests.Sum(t => t.Price * t.Quantity);
         }
 
         // d
         public static double TotalValueOfRequests(IEnumerable<Request> requests, string clientId)
         {
-            return requests.Where(c => c.ClientId == clientId).Sum(t => t.Price * t.Quantity);
+            return (double) requests.Where(c => c.ClientId == clientId).Sum(t => t.Price * t.Quantity);
         }
 
         // e
