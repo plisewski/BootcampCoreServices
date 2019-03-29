@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using BootcampCoreServices.Model;
+﻿using BootcampCoreServices.Model;
+using System.Collections.Generic;
 
 namespace BootcampCoreServices.Data
 {
@@ -15,7 +15,7 @@ namespace BootcampCoreServices.Data
             string[] jsonFiles = FilesReader.ReadJsonFiles(path);
 
             DataParser.DeserializeCsv(requests, csvFiles);
-            requests = DataParser.DeserializeXml(requests, xmlFiles);            
+            DataParser.DeserializeXml(requests, xmlFiles);
             DataParser.DeserializeJson(requests, jsonFiles);
 
             return requests;

@@ -1,12 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using BootcampCoreServices.Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Xml;
-using System.Xml.Serialization;
-using BootcampCoreServices.Model;
+using System.Xml.Linq;
 
 namespace BootcampCoreServices.Data
 {
@@ -44,29 +43,37 @@ namespace BootcampCoreServices.Data
             }
         }
 
-        public static List<Request> DeserializeXml(List<Request> requests, string[] xmlFiles)
+        public static void DeserializeXml(List<Request> requests, string[] xmlFiles)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Request>), new XmlRootAttribute("requests"));
-
             foreach (var item in xmlFiles)
             {
-                try
+                var doc = XElement.Load(item);
+
+                foreach (var element in doc.Elements("request"))
                 {
-                    XmlReader reader = XmlReader.Create(item);
-                    requests = requests.Concat((List<Request>)serializer.Deserialize(reader)).ToList();
-                }
-                catch (InvalidOperationException e)
-                {
-                    Console.WriteLine($"Plik xml {item} zawiera błędy: {e.Message}");
-                    Console.WriteLine(e.GetType().FullName);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine($"Wystąpił błąd: {e.Message}");
-                    Console.WriteLine(e.GetType().FullName);
+                    if (string.IsNullOrEmpty((string)element.Element("clientId")) ||
+                        string.IsNullOrEmpty((string)element.Element("requestId")) ||
+                        string.IsNullOrEmpty((string)element.Element("name")) ||
+                        string.IsNullOrEmpty((string)element.Element("quantity")) ||
+                        string.IsNullOrEmpty((string)element.Element("price")))
+                    {
+                        Console.WriteLine($"Niektóre elementy <request> pliku xml {item} są niekompletne...");
+
+                    }
+                    else
+                    {
+                        var request = new Request
+                        {
+                            ClientId = element.Element("clientId").Value,
+                            RequestId = long.Parse(element.Element("requestId").Value),
+                            Name = element.Element("name").Value,
+                            Quantity = int.Parse(element.Element("quantity").Value),
+                            Price = double.Parse(element.Element("price").Value, CultureInfo.InvariantCulture)
+                        };
+                        requests.Add(request);
+                    }
                 }
             }
-            return requests;
         }
 
         public static void DeserializeJson(List<Request> requests, string[] jsonFiles)
