@@ -29,88 +29,88 @@ namespace BootcampCoreServices
                 switch (userChoice)
                 {
                     case "a":
-                        Console.WriteLine($"Całkowita liczba zamówień: {ReportsGenerator.TotalNumberOfRequests(requests)}");
+                        Console.WriteLine($"\nCałkowita liczba zamówień: {ReportsGenerator.TotalNumberOfRequests(requests)}");
                         break;
                     case "b":
-                        Console.Write("Podaj ID klienta: ");
+                        Console.Write("\nPodaj ID klienta: ");
                         clientId = Console.ReadLine();
-                        Console.WriteLine($"Całkowita liczba zamówień dla klienta o ID = {clientId}: {ReportsGenerator.TotalNumberOfRequests(requests, clientId)}");
+                        Console.WriteLine($"\nCałkowita liczba zamówień dla klienta o ID = {clientId}: {ReportsGenerator.TotalNumberOfRequests(requests, clientId)}");
                         break;
                     case "c":
-                        Console.WriteLine($"Łączna kwota zamówień: {ReportsGenerator.TotalValueOfRequests(requests)}");
+                        Console.WriteLine($"\nŁączna kwota zamówień: {ReportsGenerator.TotalValueOfRequests(requests)}");
                         break;
                     case "d":
-                        Console.Write("Podaj ID klienta: ");
+                        Console.Write("\nPodaj ID klienta: ");
                         clientId = Console.ReadLine();
-                        Console.WriteLine($"Łączna kwota zamówień dla klienta o ID = {clientId}: {ReportsGenerator.TotalValueOfRequests(requests, clientId)}");
+                        Console.WriteLine($"\nŁączna kwota zamówień dla klienta o ID = {clientId}: {ReportsGenerator.TotalValueOfRequests(requests, clientId)}");
                         break;
                     case "e":
-                        Console.WriteLine("Lista wszystkich zamówień:");
+                        Console.WriteLine("\nLista wszystkich zamówień:\n");
                         ReportsGenerator.ListOfAllRequests(requests);
-                        Console.WriteLine("Chcesz posortować raport? (t/n)");
+                        Console.Write("Chcesz posortować raport? (t/n): ");
                         string userSort = Console.ReadLine();
                         SortedReport_E_F(requests, userSort, false);
                         break;
                     case "f":
-                        Console.Write("Podaj ID klienta: ");
+                        Console.Write("\nPodaj ID klienta: ");
                         clientId = Console.ReadLine();
                         if (requests.Count(x => x.ClientId == clientId) == 0)
                         {
-                            Console.WriteLine("Brak klienta o wskazanym ID...");
+                            Console.WriteLine("\nBrak klienta o wskazanym ID...");
                             break;
                         }
-                        Console.WriteLine($"Lista wszystkich zamówień dla klienta o ID = {clientId}:");
+                        Console.WriteLine($"\nLista wszystkich zamówień dla klienta o ID = {clientId}:\n");
                         ReportsGenerator.ListOfAllRequests(requests, clientId);
-                        Console.WriteLine("Chcesz posortować raport? (t/n)");
+                        Console.Write("Chcesz posortować raport? (t/n): ");
                         userSort = Console.ReadLine();
                         SortedReport_E_F(requests, userSort, true, clientId);
                         break;
                     case "g":
                         double averRequest = ReportsGenerator.TotalValueOfRequests(requests) / ReportsGenerator.TotalNumberOfRequests(requests);
-                        Console.WriteLine($"Średnia wartość zamówienia: {averRequest.ToString("F", CultureInfo.InvariantCulture)}");
+                        Console.WriteLine($"\nŚrednia wartość zamówienia: {averRequest.ToString("F", CultureInfo.InvariantCulture)}");
                         break;
                     case "h":
-                        Console.Write("Podaj ID klienta: ");
+                        Console.Write("\nPodaj ID klienta: ");
                         clientId = Console.ReadLine();
                         double averRequestClientId = ReportsGenerator.TotalValueOfRequests(requests, clientId) / ReportsGenerator.TotalNumberOfRequests(requests, clientId);
                         if (double.IsNaN(averRequestClientId))
                         {
-                            Console.WriteLine("Brak klienta o wskazanym ID...");
+                            Console.WriteLine("\nBrak klienta o wskazanym ID...");
                             break;
                         }
-                        Console.WriteLine($"Średnia wartość zamówienia dla klienta o ID = {clientId}: " +
+                        Console.WriteLine($"\nŚrednia wartość zamówienia dla klienta o ID = {clientId}: " +
                                           $"{averRequestClientId.ToString("F", CultureInfo.InvariantCulture)}");
                         break;
                     case "i":
-                        Console.WriteLine("Ilość zamówień pogrupowanych po nazwie:");
+                        Console.WriteLine("\nIlość zamówień pogrupowanych po nazwie:\n");
                         ReportsGenerator.RequestsAmountGroupedByName(requests);
-                        Console.WriteLine("Chcesz posortować raport? (t/n)");
+                        Console.Write("Chcesz posortować raport? (t/n): ");
                         userSort = Console.ReadLine();
                         SortedReport_I_J(requests, userSort, false);
                         break;
                     case "j":
-                        Console.Write("Podaj ID klienta: ");
+                        Console.Write("\nPodaj ID klienta: ");
                         clientId = Console.ReadLine();
                         if (requests.Count(x => x.ClientId == clientId) == 0)
                         {
-                            Console.WriteLine("Brak klienta o wskazanym ID...");
+                            Console.WriteLine("\nBrak klienta o wskazanym ID...");
                             break;
                         }
-                        Console.WriteLine($"Ilość zamówień pogrupowanych po nazwie dla klienta dla klienta o ID = {clientId}:");
+                        Console.WriteLine($"\nIlość zamówień pogrupowanych po nazwie dla klienta dla klienta o ID = {clientId}:\n");
                         ReportsGenerator.RequestsAmountGroupedByName(requests, clientId);
-                        Console.WriteLine("Chcesz posortować raport? (t/n)");
+                        Console.Write("Chcesz posortować raport? (t/n): ");
                         userSort = Console.ReadLine();
                         SortedReport_I_J(requests, userSort, true, clientId);
                         break;
                     case "k":
                         double priceFrom;
                         double priceTo;
-                        Console.Write("Podaj dolny przedział cen: ");
+                        Console.Write("\nPodaj dolny przedział cen: ");
                         if (Double.TryParse(Console.ReadLine(), out double price1))
                             priceFrom = price1;
                         else
                         {
-                            Console.WriteLine("Wprowadzono nieprawidłowy znak. Może uda się następnym razem... ;)");
+                            Console.WriteLine("\nWprowadzono nieprawidłowy znak. Może uda się następnym razem... ;)");
                             break;
                         }
                         Console.Write("Podaj górny przedział cen: ");
@@ -119,23 +119,23 @@ namespace BootcampCoreServices
                             priceTo = price2;
                             if (priceTo < priceFrom)
                             {
-                                Console.WriteLine("Podano złą cenę. Górny przedział cen nie może być niższy od dolnego...");
+                                Console.WriteLine("\nPodano złą cenę. Górny przedział cen nie może być niższy od dolnego...");
                                 break;
                             }
                         }
                         else
                         {
-                            Console.WriteLine("Wprowadzono nieprawidłowy znak. Może uda się następnym razem... ;)");
+                            Console.WriteLine("\nWprowadzono nieprawidłowy znak. Może uda się następnym razem... ;)");
                             break;
                         }
                         if (requests.Count(c => c.Price >= priceFrom && c.Price <= priceTo) == 0)
                         {
-                            Console.WriteLine("Brak zamówień w podanym przedziale cenowym...");
+                            Console.WriteLine("\nBrak zamówień w podanym przedziale cenowym...");
                             break;
                         }
-                        Console.WriteLine($"Zamówienia w przedziale cenowym od {priceFrom} do {priceTo}:");
+                        Console.WriteLine($"\nZamówienia w przedziale cenowym od {priceFrom} do {priceTo}:\n");
                         ReportsGenerator.RequestsInPriceRange(requests, priceFrom, priceTo);
-                        Console.WriteLine("Chcesz posortować raport? (t/n)");
+                        Console.Write("Chcesz posortować raport? (t/n): ");
                         userSort = Console.ReadLine();
                         SortedReport_K(requests, userSort, priceFrom, priceTo);
                         break;
@@ -143,18 +143,16 @@ namespace BootcampCoreServices
                         exitFlag = true;
                         break;
                     default:
-                        Console.WriteLine("Wprowadzono nieprawidłowy znak. Może uda się następnym razem... ;)");
+                        Console.WriteLine("\nWprowadzono nieprawidłowy znak. Może uda się następnym razem... ;)");
                         break;
                 }
             }
         }
 
         private static void MainMenu()
-        {
-            Console.WriteLine();
-            Console.WriteLine("******************************************************");
-            Console.WriteLine("Wybierz raport lub wciśnij z aby zakończyć:");
-            Console.WriteLine();
+        {            
+            Console.WriteLine("\n*****************************************************************************");
+            Console.WriteLine("Wybierz raport lub wciśnij z aby zakończyć: \n");
             Console.WriteLine("a\t - ilość zamówień " +
                               "\nb\t - ilość zamówień dla klienta o wskazanym ID" +
                               "\nc\t - łączna kwota zamówień" +
@@ -165,22 +163,23 @@ namespace BootcampCoreServices
                               "\nh\t - średnia wartość zamówienia dla klienta o wskazanym ID" +
                               "\ni\t - ilość zamówień pogrupowanych po nazwie" +
                               "\nj\t - ilość zamówień pogrupowanych po nazwie dla klienta o wskazanym ID" +
-                              "\nk\t - zamówienia w podanym przedziale cenowym");
-            Console.WriteLine();
+                              "\nk\t - zamówienia w podanym przedziale cenowym\n");
             Console.Write("Twój wybór: ");
         }
 
         private static void SortMenuFull()
         {
-            Console.WriteLine("Wybierz rodzaj sortowania: ");
-            Console.WriteLine("0 -> ID klienta" + "\n1 -> ID zamówienia" +
-                              "\n2 -> Nazwa produktu" + "\n3 -> Ilość" + "\n4 -> Cena");
+            Console.WriteLine("\nWybierz rodzaj sortowania:\n");
+            Console.WriteLine("1 -> ID klienta" + "\n2 -> ID zamówienia" +
+                              "\n3 -> Nazwa produktu" + "\n4 -> Ilość" + "\n5 -> Cena\n");
+            Console.Write("Twój wybór: ");
         }
 
         private static void SortMenuMini()
         {
-            Console.WriteLine("Wybierz rodzaj sortowania: ");
-            Console.WriteLine("0 -> Nazwa produktu" + "\n1 -> Ilość");
+            Console.WriteLine("\nWybierz rodzaj sortowania:\n");
+            Console.WriteLine("1 -> Nazwa produktu" + "\n2 -> Ilość\n");
+            Console.Write("Twój wybór: ");
         }
 
         private static void SortedReport_E_F(IEnumerable<Request> requests, string userSort, bool cId, string clientId = "0")
@@ -193,31 +192,31 @@ namespace BootcampCoreServices
                     SortMenuFull();
                     if (Int32.TryParse(Console.ReadLine(), out int sortChoice))
                     {
-                        if (sortChoice != 0 && sortChoice != 1 && sortChoice != 2 && sortChoice != 3 && sortChoice != 4)
+                        if (sortChoice != 1 && sortChoice != 2 && sortChoice != 3 && sortChoice != 4 && sortChoice != 5)
                         {
-                            Console.WriteLine("Wprowadzono nieprawidłowy znak. Może uda się następnym razem... ;)");
+                            Console.WriteLine("\nWprowadzono nieprawidłowy znak. Może uda się następnym razem... ;)");
                             break;
                         }
 
                         if (cId)
                         {
-                            Console.WriteLine($"Posortowana lista wszystkich zamówień dla klienta o ID = {clientId}:");
+                            Console.WriteLine($"\nPosortowana lista wszystkich zamówień dla klienta o ID = {clientId}:\n");
                             ReportsGenerator.ListOfAllRequests(requests, clientId, sortChoice);
                         }
                         else
                         {
-                            Console.WriteLine("Posortowana lista wszystkich zamówień:");
+                            Console.WriteLine("\nPosortowana lista wszystkich zamówień:\n");
                             ReportsGenerator.ListOfAllRequests(requests, sortChoice);
                         }
 
                     }
                     else
                     {
-                        Console.WriteLine("Wprowadzono nieprawidłowy znak. Może uda się następnym razem... ;)");
+                        Console.WriteLine("\nWprowadzono nieprawidłowy znak. Może uda się następnym razem... ;)");
                     }
                     break;
                 default:
-                    Console.WriteLine("Wprowadzono nieprawidłowy znak. Może uda się następnym razem... ;)");
+                    Console.WriteLine("\nWprowadzono nieprawidłowy znak. Może uda się następnym razem... ;)");
                     break;
             }
         }
@@ -232,31 +231,31 @@ namespace BootcampCoreServices
                     SortMenuMini();
                     if (Int32.TryParse(Console.ReadLine(), out int sortChoice))
                     {
-                        if (sortChoice != 0 && sortChoice != 1)
+                        if (sortChoice != 1 && sortChoice != 2)
                         {
-                            Console.WriteLine("Wprowadzono nieprawidłowy znak. Może uda się następnym razem... ;)");
+                            Console.WriteLine("\nWprowadzono nieprawidłowy znak. Może uda się następnym razem... ;)");
                             break;
                         }
 
                         if (cId)
                         {
-                            Console.WriteLine($"Posortowana ilość zamówień pogrupowanych po nazwie dla klienta o ID = {clientId}:");
+                            Console.WriteLine($"\nPosortowana ilość zamówień pogrupowanych po nazwie dla klienta o ID = {clientId}:\n");
                             ReportsGenerator.RequestsAmountGroupedByName(requests, clientId, sortChoice);
                         }
                         else
                         {
-                            Console.WriteLine("Posortowana ilość zamówień pogrupowanych po nazwie:");
+                            Console.WriteLine("\nPosortowana ilość zamówień pogrupowanych po nazwie:\n");
                             ReportsGenerator.RequestsAmountGroupedByName(requests, sortChoice);
                         }
 
                     }
                     else
                     {
-                        Console.WriteLine("Wprowadzono nieprawidłowy znak. Może uda się następnym razem... ;)");
+                        Console.WriteLine("\nWprowadzono nieprawidłowy znak. Może uda się następnym razem... ;)");
                     }
                     break;
                 default:
-                    Console.WriteLine("Wprowadzono nieprawidłowy znak. Może uda się następnym razem... ;)");
+                    Console.WriteLine("\nWprowadzono nieprawidłowy znak. Może uda się następnym razem... ;)");
                     break;
             }
         }
@@ -271,22 +270,22 @@ namespace BootcampCoreServices
                     SortMenuFull();
                     if (Int32.TryParse(Console.ReadLine(), out int sortChoice))
                     {
-                        if (sortChoice != 0 && sortChoice != 1 && sortChoice != 2 && sortChoice != 3 && sortChoice != 4)
+                        if (sortChoice != 1 && sortChoice != 2 && sortChoice != 3 && sortChoice != 4 && sortChoice != 5)
                         {
-                            Console.WriteLine("Wprowadzono nieprawidłowy znak. Może uda się następnym razem... ;)");
+                            Console.WriteLine("\nWprowadzono nieprawidłowy znak. Może uda się następnym razem... ;)");
                             break;
                         }
 
-                        Console.WriteLine("Zamówienia w przedziale cenowym od {priceFrom} do {priceTo}:");
+                        Console.WriteLine($"\nZamówienia w przedziale cenowym od {priceFrom} do {priceTo}:\n");
                         ReportsGenerator.RequestsInPriceRange(requests, priceFrom, priceTo, sortChoice);
                     }
                     else
                     {
-                        Console.WriteLine("Wprowadzono nieprawidłowy znak. Może uda się następnym razem... ;)");
+                        Console.WriteLine("\nWprowadzono nieprawidłowy znak. Może uda się następnym razem... ;)");
                     }
                     break;
                 default:
-                    Console.WriteLine("Wprowadzono nieprawidłowy znak. Może uda się następnym razem... ;)");
+                    Console.WriteLine("\nWprowadzono nieprawidłowy znak. Może uda się następnym razem... ;)");
                     break;
             }
         }

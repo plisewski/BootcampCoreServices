@@ -37,19 +37,34 @@ namespace BootcampCoreServices.ViewModel
             switch (orderBy)
             {
                 case 1:
-                    PrintReport(requests.OrderBy(x => x.RequestId));
+                    Console.WriteLine(requests.OrderBy(x => x.ClientId).ToStringTable(
+                        new[] { "ClientId", "RequestId", "Name", "Quantity", "Price" },
+                        a => a.ClientId, a => a.RequestId, a => a.Name, a => a.Quantity, a => a.Price));
                     break;
                 case 2:
-                    PrintReport(requests.OrderBy(x => x.Name));
+                    Console.WriteLine(requests.OrderBy(x => x.RequestId).ToStringTable(
+                        new[] { "ClientId", "RequestId", "Name", "Quantity", "Price" },
+                        a => a.ClientId, a => a.RequestId, a => a.Name, a => a.Quantity, a => a.Price));
                     break;
                 case 3:
-                    PrintReport(requests.OrderBy(x => x.Quantity));
+                    Console.WriteLine(requests.OrderBy(x => x.Name).ToStringTable(
+                        new[] { "ClientId", "RequestId", "Name", "Quantity", "Price" },
+                        a => a.ClientId, a => a.RequestId, a => a.Name, a => a.Quantity, a => a.Price));
                     break;
                 case 4:
-                    PrintReport(requests.OrderBy(x => x.Price));
+                    Console.WriteLine(requests.OrderBy(x => x.Quantity).ToStringTable(
+                        new[] { "ClientId", "RequestId", "Name", "Quantity", "Price" },
+                        a => a.ClientId, a => a.RequestId, a => a.Name, a => a.Quantity, a => a.Price));
+                    break;
+                case 5:
+                    Console.WriteLine(requests.OrderBy(x => x.Price).ToStringTable(
+                        new[] { "ClientId", "RequestId", "Name", "Quantity", "Price" },
+                        a => a.ClientId, a => a.RequestId, a => a.Name, a => a.Quantity, a => a.Price));
                     break;
                 default:
-                    PrintReport(requests.OrderBy(x => x.ClientId));
+                    Console.WriteLine(requests.ToStringTable(
+                        new[] { "ClientId", "RequestId", "Name", "Quantity", "Price" },
+                        a => a.ClientId, a => a.RequestId, a => a.Name, a => a.Quantity, a => a.Price));
                     break;
             }
         }
@@ -60,29 +75,35 @@ namespace BootcampCoreServices.ViewModel
             switch (orderBy)
             {
                 case 1:
-                    PrintReport(requests.Where(c => c.ClientId == clientId).OrderBy(x => x.RequestId));
+                    Console.WriteLine(requests.Where(c => c.ClientId == clientId).OrderBy(x => x.ClientId).ToStringTable(
+                        new[] { "ClientId", "RequestId", "Name", "Quantity", "Price" },
+                        a => a.ClientId, a => a.RequestId, a => a.Name, a => a.Quantity, a => a.Price));
                     break;
                 case 2:
-                    PrintReport(requests.Where(c => c.ClientId == clientId).OrderBy(x => x.Name));
+                    Console.WriteLine(requests.Where(c => c.ClientId == clientId).OrderBy(x => x.RequestId).ToStringTable(
+                        new[] { "ClientId", "RequestId", "Name", "Quantity", "Price" },
+                        a => a.ClientId, a => a.RequestId, a => a.Name, a => a.Quantity, a => a.Price));
                     break;
                 case 3:
-                    PrintReport(requests.Where(c => c.ClientId == clientId).OrderBy(x => x.Quantity));
+                    Console.WriteLine(requests.Where(c => c.ClientId == clientId).OrderBy(x => x.Name).ToStringTable(
+                        new[] { "ClientId", "RequestId", "Name", "Quantity", "Price" },
+                        a => a.ClientId, a => a.RequestId, a => a.Name, a => a.Quantity, a => a.Price));
                     break;
                 case 4:
-                    PrintReport(requests.Where(c => c.ClientId == clientId).OrderBy(x => x.Price));
+                    Console.WriteLine(requests.Where(c => c.ClientId == clientId).OrderBy(x => x.Quantity).ToStringTable(
+                        new[] { "ClientId", "RequestId", "Name", "Quantity", "Price" },
+                        a => a.ClientId, a => a.RequestId, a => a.Name, a => a.Quantity, a => a.Price));
+                    break;
+                case 5:
+                    Console.WriteLine(requests.Where(c => c.ClientId == clientId).OrderBy(x => x.Price).ToStringTable(
+                        new[] { "ClientId", "RequestId", "Name", "Quantity", "Price" },
+                        a => a.ClientId, a => a.RequestId, a => a.Name, a => a.Quantity, a => a.Price));
                     break;
                 default:
-                    PrintReport(requests.Where(c => c.ClientId == clientId).OrderBy(x => x.ClientId));
+                    Console.WriteLine(requests.Where(c => c.ClientId == clientId).ToStringTable(
+                        new[] { "ClientId", "RequestId", "Name", "Quantity", "Price" },
+                        a => a.ClientId, a => a.RequestId, a => a.Name, a => a.Quantity, a => a.Price));
                     break;
-            }
-        }
-
-        private static void PrintReport(IEnumerable<Request> requests)
-        {
-            Console.WriteLine("C_Id \t R_Id \t name \t Qty \t Price");
-            foreach (var item in requests)
-            {
-                Console.WriteLine(item.ToString());
             }
         }
 
@@ -109,16 +130,19 @@ namespace BootcampCoreServices.ViewModel
             switch (orderBy)
             {
                 case 1:
-                    foreach (var item in tmpObjList.OrderBy(x => x.Quantity))
-                    {
-                        Console.WriteLine(item.Name + "\t" + item.Quantity);
-                    }
+                    Console.WriteLine(tmpObjList.OrderBy(x => x.Name).ToStringTable(
+                        new[] { "Name", "Quantity" },
+                        a => a.Name, a => a.Quantity));
+                    break;
+                case 2:
+                    Console.WriteLine(tmpObjList.OrderBy(x => x.Quantity).ToStringTable(
+                        new[] { "Name", "Quantity" },
+                        a => a.Name, a => a.Quantity));
                     break;
                 default:
-                    foreach (var item in tmpObjList.OrderBy(x => x.Name))
-                    {
-                        Console.WriteLine(item.Name + "\t" + item.Quantity);
-                    }
+                    Console.WriteLine(tmpObjList.ToStringTable(
+                        new[] { "Name", "Quantity" },
+                        a => a.Name, a => a.Quantity));
                     break;
             }
         }
@@ -144,16 +168,19 @@ namespace BootcampCoreServices.ViewModel
             switch (orderBy)
             {
                 case 1:
-                    foreach (var item in tmpObjList.OrderBy(x => x.Quantity))
-                    {
-                        Console.WriteLine(item.Name + "\t" + item.Quantity);
-                    }
+                    Console.WriteLine(tmpObjList.OrderBy(x => x.Name).ToStringTable(
+                        new[] { "Name", "Quantity" },
+                        a => a.Name, a => a.Quantity));
+                    break;
+                case 2:
+                    Console.WriteLine(tmpObjList.OrderBy(x => x.Quantity).ToStringTable(
+                        new[] { "Name", "Quantity" },
+                        a => a.Name, a => a.Quantity));
                     break;
                 default:
-                    foreach (var item in tmpObjList.OrderBy(x => x.Name))
-                    {
-                        Console.WriteLine(item.Name + "\t" + item.Quantity);
-                    }
+                    Console.WriteLine(tmpObjList.ToStringTable(
+                        new[] { "Name", "Quantity" },
+                        a => a.Name, a => a.Quantity));
                     break;
             }
         }
@@ -164,29 +191,35 @@ namespace BootcampCoreServices.ViewModel
             switch (orderBy)
             {
                 case 1:
-                    PrintReportPriceRange(requests.OrderBy(x => x.RequestId), priceFrom, priceTo);
+                    Console.WriteLine(requests.OrderBy(x => x.ClientId).Where(c => c.Price >= priceFrom && c.Price <= priceTo).GroupBy(x => new { x.ClientId, x.RequestId, x.Name, x.Quantity, x.Price }).ToStringTable(
+                        new[] { "ClientId", "RequestId", "Name", "Quantity", "Price" },
+                        a => a.Key.ClientId, a => a.Key.RequestId, a => a.Key.Name, a => a.Key.Quantity, a => a.Key.Price));
                     break;
                 case 2:
-                    PrintReportPriceRange(requests.OrderBy(x => x.Name), priceFrom, priceTo);
+                    Console.WriteLine(requests.OrderBy(x => x.RequestId).Where(c => c.Price >= priceFrom && c.Price <= priceTo).GroupBy(x => new { x.ClientId, x.RequestId, x.Name, x.Quantity, x.Price }).ToStringTable(
+                        new[] { "ClientId", "RequestId", "Name", "Quantity", "Price" },
+                        a => a.Key.ClientId, a => a.Key.RequestId, a => a.Key.Name, a => a.Key.Quantity, a => a.Key.Price));
                     break;
                 case 3:
-                    PrintReportPriceRange(requests.OrderBy(x => x.Quantity), priceFrom, priceTo);
+                    Console.WriteLine(requests.OrderBy(x => x.Name).Where(c => c.Price >= priceFrom && c.Price <= priceTo).GroupBy(x => new { x.ClientId, x.RequestId, x.Name, x.Quantity, x.Price }).ToStringTable(
+                        new[] { "ClientId", "RequestId", "Name", "Quantity", "Price" },
+                        a => a.Key.ClientId, a => a.Key.RequestId, a => a.Key.Name, a => a.Key.Quantity, a => a.Key.Price));
                     break;
                 case 4:
-                    PrintReportPriceRange(requests.OrderBy(x => x.Price), priceFrom, priceTo);
+                    Console.WriteLine(requests.OrderBy(x => x.Quantity).Where(c => c.Price >= priceFrom && c.Price <= priceTo).GroupBy(x => new { x.ClientId, x.RequestId, x.Name, x.Quantity, x.Price }).ToStringTable(
+                        new[] { "ClientId", "RequestId", "Name", "Quantity", "Price" },
+                        a => a.Key.ClientId, a => a.Key.RequestId, a => a.Key.Name, a => a.Key.Quantity, a => a.Key.Price));
+                    break;
+                case 5:
+                    Console.WriteLine(requests.OrderBy(x => x.Price).Where(c => c.Price >= priceFrom && c.Price <= priceTo).GroupBy(x => new { x.ClientId, x.RequestId, x.Name, x.Quantity, x.Price }).ToStringTable(
+                        new[] { "ClientId", "RequestId", "Name", "Quantity", "Price" },
+                        a => a.Key.ClientId, a => a.Key.RequestId, a => a.Key.Name, a => a.Key.Quantity, a => a.Key.Price));
                     break;
                 default:
-                    PrintReportPriceRange(requests.OrderBy(x => x.ClientId), priceFrom, priceTo);
+                    Console.WriteLine(requests.Where(c => c.Price >= priceFrom && c.Price <= priceTo).GroupBy(x => new { x.ClientId, x.RequestId, x.Name, x.Quantity, x.Price }).ToStringTable(
+                        new[] { "ClientId", "RequestId", "Name", "Quantity", "Price" },
+                        a => a.Key.ClientId, a => a.Key.RequestId, a => a.Key.Name, a => a.Key.Quantity, a => a.Key.Price));
                     break;
-            }
-        }
-
-        private static void PrintReportPriceRange(IEnumerable<Request> requests, double priceFrom, double priceTo)
-        {
-            Console.WriteLine("C_Id \t R_Id \t name \t Qty \t Price");
-            foreach (var item in requests.Where(c => c.Price >= priceFrom && c.Price <= priceTo).GroupBy(x => new { x.ClientId, x.RequestId, x.Name, x.Quantity, x.Price }))
-            {
-                Console.WriteLine(item.Key.ClientId + "\t " + item.Key.RequestId + "\t " + item.Key.Name + "\t " + item.Key.Quantity + "\t " + item.Key.Price);
             }
         }
     }
