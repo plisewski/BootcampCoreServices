@@ -8,7 +8,6 @@ namespace BootcampCoreServices.ViewModel
 {
     public static class TableParser
     {
-
         /***************************************************************************************
         *    Original code by hubeza on Stackoverflow
         *    Source: https://stackoverflow.com/questions/856845/how-to-best-way-to-draw-table-in-console-app-c

@@ -37,7 +37,7 @@ namespace BootcampCoreServices.ViewModel
             switch (orderBy)
             {
                 case 1:
-                    Console.WriteLine(requests.OrderBy(x => x.ClientId).ToStringTable(
+                    Console.WriteLine(requests.OrderBy(x => x.ClientId, new AlphanumericComparer()).ToStringTable(
                         new[] { "ClientId", "RequestId", "Name", "Quantity", "Price" },
                         a => a.ClientId, a => a.RequestId, a => a.Name, a => a.Quantity, a => a.Price));
                     break;
@@ -47,7 +47,7 @@ namespace BootcampCoreServices.ViewModel
                         a => a.ClientId, a => a.RequestId, a => a.Name, a => a.Quantity, a => a.Price));
                     break;
                 case 3:
-                    Console.WriteLine(requests.OrderBy(x => x.Name).ToStringTable(
+                    Console.WriteLine(requests.OrderBy(x => x.Name, new AlphanumericComparer()).ToStringTable(
                         new[] { "ClientId", "RequestId", "Name", "Quantity", "Price" },
                         a => a.ClientId, a => a.RequestId, a => a.Name, a => a.Quantity, a => a.Price));
                     break;
@@ -75,7 +75,7 @@ namespace BootcampCoreServices.ViewModel
             switch (orderBy)
             {
                 case 1:
-                    Console.WriteLine(requests.Where(c => c.ClientId == clientId).OrderBy(x => x.ClientId).ToStringTable(
+                    Console.WriteLine(requests.Where(c => c.ClientId == clientId).OrderBy(x => x.ClientId, new AlphanumericComparer()).ToStringTable(
                         new[] { "ClientId", "RequestId", "Name", "Quantity", "Price" },
                         a => a.ClientId, a => a.RequestId, a => a.Name, a => a.Quantity, a => a.Price));
                     break;
@@ -85,7 +85,7 @@ namespace BootcampCoreServices.ViewModel
                         a => a.ClientId, a => a.RequestId, a => a.Name, a => a.Quantity, a => a.Price));
                     break;
                 case 3:
-                    Console.WriteLine(requests.Where(c => c.ClientId == clientId).OrderBy(x => x.Name).ToStringTable(
+                    Console.WriteLine(requests.Where(c => c.ClientId == clientId).OrderBy(x => x.Name, new AlphanumericComparer()).ToStringTable(
                         new[] { "ClientId", "RequestId", "Name", "Quantity", "Price" },
                         a => a.ClientId, a => a.RequestId, a => a.Name, a => a.Quantity, a => a.Price));
                     break;
@@ -130,7 +130,7 @@ namespace BootcampCoreServices.ViewModel
             switch (orderBy)
             {
                 case 1:
-                    Console.WriteLine(tmpObjList.OrderBy(x => x.Name).ToStringTable(
+                    Console.WriteLine(tmpObjList.OrderBy(x => x.Name, new AlphanumericComparer()).ToStringTable(
                         new[] { "Name", "Quantity" },
                         a => a.Name, a => a.Quantity));
                     break;
@@ -168,7 +168,7 @@ namespace BootcampCoreServices.ViewModel
             switch (orderBy)
             {
                 case 1:
-                    Console.WriteLine(tmpObjList.OrderBy(x => x.Name).ToStringTable(
+                    Console.WriteLine(tmpObjList.OrderBy(x => x.Name, new AlphanumericComparer()).ToStringTable(
                         new[] { "Name", "Quantity" },
                         a => a.Name, a => a.Quantity));
                     break;
@@ -191,7 +191,7 @@ namespace BootcampCoreServices.ViewModel
             switch (orderBy)
             {
                 case 1:
-                    Console.WriteLine(requests.OrderBy(x => x.ClientId).Where(c => c.Price >= priceFrom && c.Price <= priceTo).GroupBy(x => new { x.ClientId, x.RequestId, x.Name, x.Quantity, x.Price }).ToStringTable(
+                    Console.WriteLine(requests.OrderBy(x => x.ClientId, new AlphanumericComparer()).Where(c => c.Price >= priceFrom && c.Price <= priceTo).GroupBy(x => new { x.ClientId, x.RequestId, x.Name, x.Quantity, x.Price }).ToStringTable(
                         new[] { "ClientId", "RequestId", "Name", "Quantity", "Price" },
                         a => a.Key.ClientId, a => a.Key.RequestId, a => a.Key.Name, a => a.Key.Quantity, a => a.Key.Price));
                     break;
@@ -201,7 +201,7 @@ namespace BootcampCoreServices.ViewModel
                         a => a.Key.ClientId, a => a.Key.RequestId, a => a.Key.Name, a => a.Key.Quantity, a => a.Key.Price));
                     break;
                 case 3:
-                    Console.WriteLine(requests.OrderBy(x => x.Name).Where(c => c.Price >= priceFrom && c.Price <= priceTo).GroupBy(x => new { x.ClientId, x.RequestId, x.Name, x.Quantity, x.Price }).ToStringTable(
+                    Console.WriteLine(requests.OrderBy(x => x.Name, new AlphanumericComparer()).Where(c => c.Price >= priceFrom && c.Price <= priceTo).GroupBy(x => new { x.ClientId, x.RequestId, x.Name, x.Quantity, x.Price }).ToStringTable(
                         new[] { "ClientId", "RequestId", "Name", "Quantity", "Price" },
                         a => a.Key.ClientId, a => a.Key.RequestId, a => a.Key.Name, a => a.Key.Quantity, a => a.Key.Price));
                     break;
