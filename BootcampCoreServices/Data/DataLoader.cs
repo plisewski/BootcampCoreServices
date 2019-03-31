@@ -1,4 +1,5 @@
 ﻿using BootcampCoreServices.Model;
+using System;
 using System.Collections.Generic;
 
 namespace BootcampCoreServices.Data
@@ -14,9 +15,38 @@ namespace BootcampCoreServices.Data
             string[] xmlFiles = FilesReader.ReadXmlFiles(path);
             string[] jsonFiles = FilesReader.ReadJsonFiles(path);
 
-            DataParser.DeserializeCsv(requests, csvFiles);
-            DataParser.DeserializeXml(requests, xmlFiles);
-            DataParser.DeserializeJson(requests, jsonFiles);
+            try
+            {
+                DataParser.DeserializeCsv(requests, csvFiles);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Wystąpił problem podczas parsowania danych z plików csv " + e.Message);
+                Console.WriteLine(e.GetType().FullName);
+                Environment.Exit(0);
+            }
+
+            try
+            {
+                DataParser.DeserializeXml(requests, xmlFiles);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Wystąpił problem podczas parsowania danych z plików xml " + e.Message);
+                Console.WriteLine(e.GetType().FullName);
+                Environment.Exit(0);
+            }
+
+            try
+            {
+                DataParser.DeserializeJson(requests, jsonFiles);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Wystąpił problem podczas parsowania danych z plików json " + e.Message);
+                Console.WriteLine(e.GetType().FullName);
+                Environment.Exit(0);
+            }
 
             return requests;
         }
