@@ -17,28 +17,34 @@ namespace BootcampCoreServices.Data
             {
                 var csvContent = File.ReadAllLines(item).Skip(1);
 
-                try
+                foreach (var item2 in csvContent)
                 {
-                    foreach (var item2 in csvContent)
+
+                    var values = item2.Split(',');
+
+                    if (values.Length != 5 || values.Any(x => x.Equals("")))
                     {
-                        var values = item2.Split(',');
-
-                        var request = new Request
-                        {
-                            ClientId = values[0],
-                            RequestId = Int64.Parse(values[1]),
-                            Name = values[2],
-                            Quantity = Int32.Parse(values[3]),
-                            Price = Double.Parse(values[4], CultureInfo.InvariantCulture)
-                        };
-
-                        requests.Add(request);
+                        Console.WriteLine($"W dokumencie csv {item} brakuje niektórych kolumn lub zawierają one puste wartości...");
+                        continue;
                     }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine($"Plik csv {item} zawiera błędy: {e.Message}");
-                    Console.WriteLine(e.GetType().FullName);
+
+                    var request = new Request
+                    {
+                        ClientId = values[0],
+                        RequestId = long.Parse(values[1]),
+                        Name = values[2],
+                        Quantity = int.Parse(values[3]),
+                        Price = double.Parse(values[4], CultureInfo.InvariantCulture)
+                    };
+
+                    if (request.ClientId.Contains(" "))
+                        Console.WriteLine($"Pole ClientId w pliku {item} zawiera niedozwolone znaki (spacje)");
+                    else if (request.ClientId.Length > 6)
+                        Console.WriteLine($"Długość pola ClientId w pliku {item} przekracza dozwolony limit (6 znaków)");
+                    else if (request.Name.Length > 255)
+                        Console.WriteLine($"Długość pola Name w pliku {item} przekracza dozwolony limit (255 znaków)");
+                    else
+                        requests.Add(request);
                 }
             }
         }
@@ -57,7 +63,7 @@ namespace BootcampCoreServices.Data
                         string.IsNullOrEmpty((string)element.Element("quantity")) ||
                         string.IsNullOrEmpty((string)element.Element("price")))
                     {
-                        Console.WriteLine($"Niektóre elementy <request> pliku xml {item} są niekompletne...");
+                        Console.WriteLine($"W dokumencie xml {item} brakuje niektórych tagów w elemencie <request> lub zawierają one puste wartości...");
 
                     }
                     else
@@ -70,7 +76,15 @@ namespace BootcampCoreServices.Data
                             Quantity = int.Parse(element.Element("quantity").Value),
                             Price = double.Parse(element.Element("price").Value, CultureInfo.InvariantCulture)
                         };
-                        requests.Add(request);
+
+                        if (request.ClientId.Contains(" "))
+                            Console.WriteLine($"Pole ClientId w pliku {item} zawiera niedozwolone znaki (spacje)");
+                        else if (request.ClientId.Length > 6)
+                            Console.WriteLine($"Długość pola ClientId w pliku {item} przekracza dozwolony limit (6 znaków)");
+                        else if (request.Name.Length > 255)
+                            Console.WriteLine($"Długość pola Name w pliku {item} przekracza dozwolony limit (255 znaków)");
+                        else
+                            requests.Add(request);
                     }
                 }
             }
@@ -80,26 +94,23 @@ namespace BootcampCoreServices.Data
         {
             foreach (var item in jsonFiles)
             {
-                try
-                {
-                    var requestData = JsonConvert.DeserializeObject<RequestDb>(File.ReadAllText(item));
+                var requestData = JsonConvert.DeserializeObject<RequestDb>(File.ReadAllText(item));
 
-                    foreach (var item2 in requestData.Requests)
-                    {
-                        if (string.IsNullOrEmpty(item2.ClientId) || string.IsNullOrEmpty(item2.RequestId.ToString()) || string.IsNullOrEmpty(item2.Name) || item2.Quantity.Equals(null) || item2.Price.Equals(null))
-                        {
-                            Console.WriteLine($"W dokumencie json {item} brakuje niektórych pól...");
-                        }
-                        else
-                        {
-                            requests.Add(item2);
-                        }
-                    }
-                }
-                catch (Exception e)
+                foreach (var item2 in requestData.Requests)
                 {
-                    Console.WriteLine($"Wystąpił błąd: {e.Message}");
-                    Console.WriteLine(e.GetType().FullName);
+                    if (string.IsNullOrEmpty(item2.ClientId) || item2.RequestId.Equals(null) ||
+                        string.IsNullOrEmpty(item2.Name) || item2.Quantity.Equals(null) || item2.Price.Equals(null))
+                    {
+                        Console.WriteLine($"W dokumencie json {item} brakuje niektórych pól lub zawierają one puste wartości...");
+                    }
+                    else if (item2.ClientId.Contains(" "))
+                        Console.WriteLine($"Pole ClientId w pliku {item} zawiera niedozwolone znaki (spacje)");
+                    else if (item2.ClientId.Length > 6)
+                        Console.WriteLine($"Długość pola ClientId w pliku {item} przekracza dozwolony limit (6 znaków)");
+                    else if (item2.Name.Length > 255)
+                        Console.WriteLine($"Długość pola Name w pliku {item} przekracza dozwolony limit (255 znaków)");
+                    else
+                        requests.Add(item2);
                 }
             }
         }
